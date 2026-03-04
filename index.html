@@ -1,69 +1,57 @@
-<!DOCTYPE html> 
-
+<!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Prezentarea Mea</title>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofoliu Robert</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-    <script>
-        alert("Hello World!");
-    </script>
 
     <header>
         <h1>Hopulele Robert</h1>
-        <p>Student la unitbv</p>
+        <p id="salut-header">Se încarcă salutul...</p>
     </header>
 
     <nav>
         <ul>
-            <li><a href="#about">Despre mine</a></li>
+            <li><a href="#about">Despre</a></li>
             <li><a href="#education">Educație</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><button id="theme-toggle">🌙 Dark Mode</button></li>
         </ul>
     </nav>
 
     <main>
-        <section id="about">
+        <section id="about" class="card">
             <h2>Cine sunt eu?</h2>
-            <img src="C:\Users\evama\Documents\PW\Laborator 1\images.webp" alt="Poza mea de profil" loading="lazy">
-            <p>Salut! Acesta este primul meu site.</p>
+            <img src="images.webp" alt="Profil" class="profile-img">
+            <p>Salut! Acesta este portofoliul meu creat pentru laboratorul de PW.</p>
         </section>
 
-        <section id="education">
-            <h2>Studiile mele</h2>
-            <ol>
-                <li>Liceul Mihai Viteazu (2019 - 2024)</li>
-                <li>Facultatea de Inginerie (2024 - Prezent)</li>
-            </ol>
+        <section id="education" class="card">
+            <h2>Educație</h2>
+            <ul>
+                <li><strong>2019 - 2024:</strong> Liceul Mihai Viteazu</li>
+                <li><strong>2024 - Prezent:</strong> Facultatea de Inginerie, UniTBv</li>
+            </ul>
+        </section>
+
+        <section id="contact" class="card">
+            <h2>Contact</h2>
+            <form id="contact-form">
+                <label>Nume:</label><br>
+                <input type="text" id="name"><br><br>
+                <label>Email:</label><br>
+                <input type="email" id="email"><br><br>
+                <label>Mesaj:</label><br>
+                <textarea id="message"></textarea><br><br>
+                <button type="submit">Trimite Mesaj</button>
+                <p id="feedback-message"></p>
+            </form>
         </section>
     </main>
 
-    <aside>
-        <h3>Hobby-uri</h3>
-        <p>Imi plac jocurile .</p>
-    </aside>
-    <footer id="contact">
-        <script src="js\contact_forms.js"></script>
-        <p>Drepturi de autor 2024</p>
-
-        <h3>Scrie-mi un mesaj</h3>
-        <form onsubmit="return false">
-            
-            <label for="name">Nume:</label><br>
-            <input type="text" id="name" autocomplete="name"><br><br>
-
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" autocomplete="email" required><br><br>
-
-            <label for="message">Mesaj:</label><br>
-            <textarea id="message" minlength="10" required></textarea><br><br>
-
-            <button type="submit" onclick="submitForm()">Trimite</button>
-        </form>
-    </footer>
-
+    <script src="js/contact_forms.js"></script>
+    <script src ="js/array.js"></script>
 </body>
 </html>
