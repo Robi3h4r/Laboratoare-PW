@@ -1,6 +1,11 @@
+import Card from './Card';
+
+
 function App() {
 return (
   <div>
+
+    <Card/>
     <h1>Dashboard</h1>
     <h2>Test de pozitionare </h2>
     <p>Hopulele Robert </p>
