@@ -1,4 +1,6 @@
 import Card from './Card';
+import QuickNote from './QuickNote';
+import TodoList from './TodoList';
 
 
 function App() {
@@ -12,7 +14,16 @@ return (
     <ul>mere</ul>
     <ul>pere</ul>
     <p>Primul site jsx</p>
+
+    <QuickNote>
+      
+    </QuickNote>
+
+    <TodoList>
+      
+    </TodoList>
   </div>
+  
 );
 
 }
