@@ -5,6 +5,7 @@ function ProjectList() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(function() {
     fetch('/data/projects.json')
@@ -15,7 +16,7 @@ function ProjectList() {
         setProjects(data.projects);
         setLoading(false);
       })
-      .catch(function(err) {
+      .catch(function() {
         setError('Eroare la incarcarea datelor');
         setLoading(false);
       });
@@ -32,11 +33,24 @@ function ProjectList() {
   return (
     <div>
       <h3>Proiecte</h3>
-      {projects.map(function(p) {
-        return (
-          <Card key={p.id} title={p.title} />
-        );
-      })}
+
+      <input 
+        type="text"
+        placeholder="Cauta proiect..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+
+      {projects
+        .filter(function(p) {
+          return p.title.toLowerCase().includes(searchTerm.toLowerCase());
+        })
+        .map(function(p) {
+          return (
+            <Card key={p.id} title={p.title} />
+          );
+        })
+      }
     </div>
   );
 }
