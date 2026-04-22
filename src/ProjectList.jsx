@@ -51,6 +51,12 @@ function ProjectList() {
           );
         })
       }
+
+      <div style={{ marginTop: '20px', borderTop: '1px solid black' }}>
+        <p>Total proiecte: {projects.length}</p>
+        <p>Finalizate: {projects.filter(p => p.done).length}</p>
+        <p>In lucru: {projects.filter(p => !p.done).length}</p>
+      </div>
     </div>
   );
 }
