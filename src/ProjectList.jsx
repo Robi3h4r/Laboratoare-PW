@@ -4,6 +4,7 @@ import Card from './Card';
 function ProjectList() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(function() {
     fetch('/data/projects.json')
@@ -13,8 +14,16 @@ function ProjectList() {
       .then(function(data) {
         setProjects(data.projects);
         setLoading(false);
+      })
+      .catch(function(err) {
+        setError('Eroare la incarcarea datelor');
+        setLoading(false);
       });
   }, []);
+
+  if (error) {
+    return <p>{error}</p>;
+  }
 
   if (loading) {
     return <p>Se incarca...</p>;

@@ -2,11 +2,11 @@ import Card from './Card';
 import QuickNote from './QuickNote';
 import TodoList from './TodoList';
 import ContactForm from './ContactForm';
+import ProjectList from './ProjectList';
 
 function App() {
   return (
     <div>
-
       <Card/>
       <h1>Dashboard</h1>
       <h2>Test de pozitionare </h2>
@@ -15,18 +15,15 @@ function App() {
       <ul>pere</ul>
       <p>Primul site jsx</p>
 
-      <QuickNote>
-        
-      </QuickNote>
+      <ProjectList />
 
-      <TodoList>
-        
-      </TodoList>
+      <QuickNote />
+
+      <TodoList />
 
       <ContactForm
       Hello
       />
-
     </div>
   );
 }
