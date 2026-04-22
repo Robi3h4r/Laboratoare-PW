@@ -1,10 +1,9 @@
-function Card(){
-return(
-<div>
-    <p>Titlul meu</p>
-</div>);
+function Card(props) {
+  return (
+    <div>
+      <p>{props.title}</p>
+    </div>
+  );
 }
 
-
-
-export default Card
+export default Card;
