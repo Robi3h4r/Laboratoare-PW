@@ -43,3 +43,5 @@ app.get('/api/stats', function(req, res) {
 app.listen(PORT, function() {
  console.log('Server pornit pe http://localhost:' + PORT);
 });
+
+//hello from laptop
