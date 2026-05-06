@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const PORT = 3000;
+app.use(express.json());
 // Prima ruta: raspunde la GET /
 app.get('/', function(req, res) {
  res.json({ message: 'Serverul functioneaza!' });
