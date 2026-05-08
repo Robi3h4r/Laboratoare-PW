@@ -35,6 +35,23 @@ app.get('/api/projects', async function(req, res) {
   }
 });
 
+// GET /api/projects/:id — returnează un singur proiect după id din MongoDB
+app.get('/api/projects/:id', async function(req, res) {
+  try {
+    // Hint: Folosiți await Project.findById(req.params.id) pentru a citi id-ul din URL
+    const project = await Project.findById(req.params.id);
+    
+    if (!project) {
+      
+      return res.status(404).json({ error: 'Not found' });
+    }
+    
+    res.json(project);
+  } catch (err) {
+    res.status(500).json({ error: 'ID invalid sau eroare server' });
+  }
+});
+
 // Exercițiul 5: Rescrieți POST cu MongoDB
 app.post('/api/projects', async function(req, res) {
   try {
@@ -51,22 +68,22 @@ app.post('/api/projects', async function(req, res) {
   }
 });
 
-// GET /api/projects/:id și /api/stats (Comentate pentru că foloseau array-ul vechi)
-/*
-app.get('/api/projects/:id', function(req, res) {
-  // Hint: Folosiți req.params.id pentru a citi id-ul din URL. 
-  // Va trebui rescris pentru MongoDB cu Project.findById(req.params.id)
-});
-
-app.get('/api/stats', function(req, res) {
-  // Hint: Calculați cu filter().length pe array-ul projects
-});
-*/
-
-// DELETE /api/projects/:id — ștergere proiect
-app.delete('/api/projects/:id', function(req, res) {
-  // Această rută va fi și ea rescrisă pentru MongoDB.
-  res.json({ message: 'Ruta DELETE urmează să fie actualizată' });
+// DELETE /api/projects/:id — ștergere proiect din MongoDB
+app.delete('/api/projects/:id', async function(req, res) {
+  try {
+    // Hint: Folosiți await Project.findByIdAndDelete(req.params.id)
+    const deletedProject = await Project.findByIdAndDelete(req.params.id);
+    
+    if (!deletedProject) {
+      // Dacă nu există: status 404
+      return res.status(404).json({ error: 'Not found' });
+    }
+    
+    // Dacă există: res.json({ message: 'Deleted' })
+    res.json({ message: 'Deleted' });
+  } catch (err) {
+    res.status(500).json({ error: 'Eroare la stergere' });
+  }
 });
 
 // Porneste serverul (Întotdeauna la final)
