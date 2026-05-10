@@ -24,7 +24,7 @@ function ProjectList() {
       });
   }, []);
   
-  // Am adăugat "e" și "e.preventDefault()" ca să nu se dea refresh la pagină
+  
   async function handleSubmit(e) {
     e.preventDefault(); 
  try {
@@ -41,6 +41,20 @@ function ProjectList() {
  console.error('Eroare:', err);
  }
 }
+
+ 
+  async function handleDelete(id) {
+    try {
+      await fetch('http://localhost:3000/api/projects/' + id, {
+        method: 'DELETE'
+      });
+      
+      // Actualizăm lista locală: păstrăm doar proiectele care NU au id-ul șters
+      setProjects(projects.filter(p => p._id !== id));
+    } catch (err) {
+      console.error('Eroare la ștergere:', err);
+    }
+  }
 
   if (error) {
     return <p>{error}</p>;
@@ -82,8 +96,18 @@ function ProjectList() {
         })
         .map(function(p) {
           return (
-            // Am schimbat p.id în p._id pentru că MongoDB așa le salvează
-            <Card key={p._id} title={p.title} />
+            <div key={p._id} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
+              {/* Am schimbat p.id în p._id pentru că MongoDB așa le salvează */}
+              <Card title={p.title} />
+              
+              {/* Butonul de ștergere adăugat conform Exercițiului 5 */}
+              <button 
+                onClick={() => handleDelete(p._id)}
+                style={{ backgroundColor: 'red', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer' }}
+              >
+                Șterge
+              </button>
+            </div>
           );
         })
       }
