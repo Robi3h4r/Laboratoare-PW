@@ -6,6 +6,8 @@ function ProjectList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [title, setTitle] = useState('');
+  const [tech, setTech] = useState('');
 
   useEffect(function() {
     fetch('http://localhost:3000/api/projects')
@@ -21,6 +23,24 @@ function ProjectList() {
         setLoading(false);
       });
   }, []);
+  
+  // Am adăugat "e" și "e.preventDefault()" ca să nu se dea refresh la pagină
+  async function handleSubmit(e) {
+    e.preventDefault(); 
+ try {
+ const response = await fetch('http://localhost:3000/api/projects', {
+ method: 'POST',
+ headers: { 'Content-Type': 'application/json' },
+ body: JSON.stringify({ title: title, tech: tech }),
+ });
+ const newProject = await response.json();
+ setProjects([...projects, newProject]);
+ setTitle(''); // Goleste input-urile
+ setTech('');
+ } catch (err) {
+ console.error('Eroare:', err);
+ }
+}
 
   if (error) {
     return <p>{error}</p>;
@@ -33,6 +53,21 @@ function ProjectList() {
   return (
     <div>
       <h3>Proiecte</h3>
+
+      {/* Am adăugat formularul ca să poți folosi funcția handleSubmit */}
+      <form onSubmit={handleSubmit} style={{ marginBottom: '20px' }}>
+        <input 
+          placeholder="Titlu proiect" 
+          value={title} 
+          onChange={(e) => setTitle(e.target.value)} 
+        />
+        <input 
+          placeholder="Tehnologii" 
+          value={tech} 
+          onChange={(e) => setTech(e.target.value)} 
+        />
+        <button type="submit">Adaugă Proiect</button>
+      </form>
 
       <input 
         type="text"
@@ -47,7 +82,8 @@ function ProjectList() {
         })
         .map(function(p) {
           return (
-            <Card key={p.id} title={p.title} />
+            // Am schimbat p.id în p._id pentru că MongoDB așa le salvează
+            <Card key={p._id} title={p.title} />
           );
         })
       }
