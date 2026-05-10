@@ -1,5 +1,9 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
+app.use(cors());
+
+
 const Project = require('./models/Project'); // Pas 1: Importăm modelul
 
 // Conectarea la baza de date
