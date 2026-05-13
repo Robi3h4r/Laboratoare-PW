@@ -8,7 +8,7 @@ function ProjectList() {
   const [searchTerm, setSearchTerm] = useState('');
   const [title, setTitle] = useState('');
   const [tech, setTech] = useState('');
-
+  
   useEffect(function() {
     fetch('http://localhost:3000/api/projects')
       .then(function(response) {
@@ -42,7 +42,6 @@ function ProjectList() {
  }
 }
 
- 
   async function handleDelete(id) {
     try {
       await fetch('http://localhost:3000/api/projects/' + id, {
@@ -53,6 +52,24 @@ function ProjectList() {
       setProjects(projects.filter(p => p._id !== id));
     } catch (err) {
       console.error('Eroare la ștergere:', err);
+    }
+  }
+
+  // CERINȚA NOUĂ: Funcția handleToggle pentru a schimba starea (done/not done)
+  async function handleToggle(id, currentDone) {
+    try {
+      const response = await fetch('http://localhost:3000/api/projects/' + id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ done: !currentDone }) // Inversăm starea actuală
+      });
+      
+      const updatedProject = await response.json();
+      
+      // Actualizăm starea: dacă _id se potrivește, punem obiectul nou, altfel îl lăsăm pe cel vechi
+      setProjects(projects.map(p => p._id === id ? updatedProject : p));
+    } catch (err) {
+      console.error('Eroare la actualizare:', err);
     }
   }
 
@@ -97,9 +114,16 @@ function ProjectList() {
         .map(function(p) {
           return (
             <div key={p._id} style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
-              {/* Am schimbat p.id în p._id pentru că MongoDB așa le salvează */}
               <Card title={p.title} />
               
+              {/* Butonul de Toggle (Finalizare/Repunere în lucru) */}
+              <button 
+                onClick={() => handleToggle(p._id, p.done)}
+                style={{ backgroundColor: p.done ? 'orange' : 'green', color: 'white', border: 'none', padding: '5px 10px', cursor: 'pointer' }}
+              >
+                {p.done ? 'Reia' : 'Finalizează'}
+              </button>
+
               {/* Butonul de ștergere adăugat conform Exercițiului 5 */}
               <button 
                 onClick={() => handleDelete(p._id)}
