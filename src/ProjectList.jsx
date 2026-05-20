@@ -53,6 +53,7 @@ function ProjectList() {
 
   // 4. LOGICA PENTRU ȘTERGERE (DELETE)
   async function handleDelete(id) {
+    if (window.confirm('Sigur doriti sa stergeti acest proiect ?'))
     try {
       await fetch('http://localhost:3000/api/projects/' + id, {
         method: 'DELETE'
