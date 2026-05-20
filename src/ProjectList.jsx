@@ -94,7 +94,7 @@ function ProjectList() {
         body: JSON.stringify({ title: editTitle, tech: editTech })
       });
       const updated = await response.json();
-      setProjects(projects.map(p => p._id === id ? updated : p));
+      setProjects(projects.map(p => p._id === id ? updated : p)); 
       setEditingId(null); // Inchid modul de editare
     } catch (err) {
       console.error("Eroare la salvare:", err);
